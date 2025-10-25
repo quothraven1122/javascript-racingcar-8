@@ -49,6 +49,16 @@ const printRaceState = (cars) => {
   Console.print("");
 };
 
+//결과 출력하기
+const printWinners = (cars) => {
+  const maxCount = Math.max(...cars.map((car) => car.count));
+  const winners = cars
+    .filter(({ count }) => count == maxCount)
+    .map((car) => car.name);
+
+  Console.print(`최종 우승자 : ${winners.join(", ")}`);
+};
+
 class App {
   async run() {
     const [tries, cars] = await getInput();
@@ -56,6 +66,7 @@ class App {
 
     Console.print("실행 결과");
     raceCars(tries, cars);
+    printWinners(cars);
   }
 }
 
