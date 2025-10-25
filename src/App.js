@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 //입력 받는 함수
 const getInput = async () => {
@@ -30,9 +30,32 @@ const checkTriesInput = (triesInput) => {
     throw new Error("[ERROR] Input Error: Wrong Input for Tries");
 };
 
+//자동차 움직이기
+const raceCars = (tries, cars) => {
+  for (let i = 0; i < tries; i++) {
+    moveCars(cars);
+    printRaceState(cars);
+  }
+};
+const moveCars = (cars) => {
+  cars.forEach((car) => {
+    if (MissionUtils.Random.pickNumberInRange(0, 9) >= 4) car.count++;
+  });
+};
+const printRaceState = (cars) => {
+  cars.forEach(({ name, count }) => {
+    Console.print(`${name} : ${"-".repeat(count)}`);
+  });
+  Console.print("");
+};
+
 class App {
   async run() {
     const [tries, cars] = await getInput();
+    Console.print("");
+
+    Console.print("실행 결과");
+    raceCars(tries, cars);
   }
 }
 
